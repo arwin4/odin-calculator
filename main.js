@@ -1,3 +1,18 @@
+attachButtonListeners();
+
+function attachButtonListeners() {
+  const numberButton = document.querySelectorAll('.number');
+  numberButton.forEach(button => {
+    button.addEventListener('click', () => displayInputNumber(button.id));
+  });
+}
+
+function displayInputNumber(num) {
+  const display = document.querySelector('.display');
+  if (display.textContent === '0') display.textContent = ''; // Clear display
+  display.textContent += num;
+}
+
 function add(a, b) {
   return a + b;
 }
