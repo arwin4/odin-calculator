@@ -1,18 +1,38 @@
 attachButtonListeners();
 
+// Save the numbers on the display in an object to allow setting up a proxy.
+let displayValue = {
+  num: '0',
+}
+
+const displayHandler = {
+  set(target, prop, val) {
+    // Keep display clean of double and leading zeros
+     if (target[prop] == 0 && val.length > 1) val = val.slice(1);
+     target[prop] = val;
+    
+    // Change dom
+    const display = document.querySelector('.display');
+    display.textContent = val;
+    return true;
+  }
+}
+
+// Detect attempted input to display
+displayValue = new Proxy(displayValue, displayHandler);
+
 function attachButtonListeners() {
   const numberButton = document.querySelectorAll('.number');
   numberButton.forEach(button => {
-    button.addEventListener('click', () => displayInputNumber(button.id));
+    // Add the clicked number to the display
+    button.addEventListener('click', () => displayValue.num += button.id);
   });
+
+  const clearButton = document.getElementById('clear');
+  clearButton.onclick = () => displayValue.num = 0;
 }
 
-function displayInputNumber(num) {
-  const display = document.querySelector('.display');
-  if (display.textContent === '0') display.textContent = ''; // Clear display
-  display.textContent += num;
-}
-
+// Arithmetic
 function add(a, b) {
   return a + b;
 }
