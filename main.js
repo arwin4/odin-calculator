@@ -1,6 +1,9 @@
 attachButtonListeners();
 
 let numbersInput = 0;
+let firstOperand = null;
+let secondOperand = null;
+let chosenOperator = null;
 
 function attachButtonListeners() {
   const numberButtons = document.querySelectorAll('.number');
@@ -10,6 +13,18 @@ function attachButtonListeners() {
 
   const clearButton = document.getElementById('clear');
   clearButton.onclick = () => clearScreen();
+
+  const operatorButtons = document.querySelectorAll('.operator');
+  operatorButtons.forEach(button => {
+    button.onclick = () => saveFirstOperand(button.id);
+  })
+
+  const equalButton = document.getElementById('equals');
+  equalButton.onclick = () => {
+    console.log('calculating');
+    let result = operate(chosenOperator, firstOperand, numbersInput);
+    console.log(result);
+  }
 }
 
 function updateInput(number) {
@@ -25,6 +40,15 @@ function updateInput(number) {
   // Append new input
   numbersInput += number;
   updateDisplay(numbersInput);
+
+}
+
+function saveFirstOperand(operator) {
+  firstOperand = numbersInput;
+  console.log('first operand is ' + firstOperand);
+  chosenOperator = operator;
+  console.log('the operator is ' + chosenOperator);
+  clearScreen();
 }
 
 function clearScreen() {
@@ -62,14 +86,18 @@ function divide(a, b) {
 
 function operate(operator, a, b) {
   // Calculates using the given operator
+
+  a = parseInt(a);
+  b = parseInt(b);
+  
   switch (operator) {
-    case '+':
+    case 'add':
       return add(a, b);
-    case '-':
+    case 'subtract':
       return subtract(a, b);
-    case '*':
+    case 'multiply':
       return multiply(a, b);
-    case '/':
+    case 'divide':
       return divide(a, b);
     default:
       return 'error';
