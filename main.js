@@ -1,51 +1,41 @@
 attachButtonListeners();
 
-// Save the numbers on the display in an object to allow setting up a proxy.
-let displayValue = {
-  num: '0',
-}
-
-const displayHandler = {
-  set(target, prop, val) {
-    const display = document.querySelector('.display');
-
-    // Limit display to 8 digits
-    if (target[prop].length > 8) {
-      return true;
-    }
-    // Keep display clean of double and leading zeros
-    else if (target[prop] == 0 && val.length > 1) {
-      val = val.slice(1);
-    }
-    
-    // Update the internal value
-    target[prop] = val;
-    // Change dom (update display)
-    display.textContent = val;
-    return true;
-  }
-}
-
-// Detect attempted input to display
-displayValue = new Proxy(displayValue, displayHandler);
+let numbersInput = 0;
 
 function attachButtonListeners() {
-  const numberButton = document.querySelectorAll('.number');
-  numberButton.forEach(button => {
-    // Add the clicked number to the display
-    button.onclick = () => displayValue.num += button.id;
+  const numberButtons = document.querySelectorAll('.number');
+  numberButtons.forEach(button => {
+    button.onclick = () => updateInput(button.id);
   });
 
   const clearButton = document.getElementById('clear');
-  // clearButton.onclick = (e) => displayValue.num = clearButton.id;
-  clearButton.onclick = () => clearDisplay();
+  clearButton.onclick = () => clearScreen();
 }
 
-function clearDisplay() {
-  displayValue.num = 0;
-  const display = document.querySelector('.display');
-  display.textContent = '0';
-  console.log(displayValue.num);
+function updateInput(number) {
+  if (numbersInput == 0) {
+    numbersInput = '';
+  }
+  else if ((numbersInput == 0) && (number == 0)) {
+    return;
+  }
+  numbersInput += number;
+  updateDisplay(numbersInput);
+}
+
+function clearScreen() {
+  display = getDisplay();
+  numbersInput = 0;
+  display.textContent = numbersInput;
+}
+
+function getDisplay() {
+  return document.querySelector('.display');
+}
+
+function updateDisplay(input) {
+  display = getDisplay();
+  display.textContent = input;
 }
 
 // Arithmetic
