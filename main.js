@@ -13,12 +13,16 @@ function attachButtonListeners() {
 }
 
 function updateInput(number) {
-  if (numbersInput == 0) {
+  if (numbersInput == 0) { // Prevent leading zeros
     numbersInput = '';
   }
-  else if ((numbersInput == 0) && (number == 0)) {
+  else if ((numbersInput == 0) && (number == 0)) { // Prevent adding 0 to 0
     return;
   }
+  else if (numbersInput.length == 8) { // Limit display to 8 characters
+    return;
+  }
+  // Append new input
   numbersInput += number;
   updateDisplay(numbersInput);
 }
