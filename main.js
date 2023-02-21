@@ -7,12 +7,20 @@ let displayValue = {
 
 const displayHandler = {
   set(target, prop, val) {
-    // Keep display clean of double and leading zeros
-     if (target[prop] == 0 && val.length > 1) val = val.slice(1);
-     target[prop] = val;
-    
-    // Change dom
     const display = document.querySelector('.display');
+
+    // Limit display to 8 digits
+    if (target[prop].length > 8) {
+      return true;
+    }
+    // Keep display clean of double and leading zeros
+    else if (target[prop] == 0 && val.length > 1) {
+      val = val.slice(1);
+    }
+    
+    // Update the internal value
+    target[prop] = val;
+    // Change dom (update display)
     display.textContent = val;
     return true;
   }
@@ -25,11 +33,19 @@ function attachButtonListeners() {
   const numberButton = document.querySelectorAll('.number');
   numberButton.forEach(button => {
     // Add the clicked number to the display
-    button.addEventListener('click', () => displayValue.num += button.id);
+    button.onclick = () => displayValue.num += button.id;
   });
 
   const clearButton = document.getElementById('clear');
-  clearButton.onclick = () => displayValue.num = 0;
+  // clearButton.onclick = (e) => displayValue.num = clearButton.id;
+  clearButton.onclick = () => clearDisplay();
+}
+
+function clearDisplay() {
+  displayValue.num = 0;
+  const display = document.querySelector('.display');
+  display.textContent = '0';
+  console.log(displayValue.num);
 }
 
 // Arithmetic
