@@ -7,7 +7,7 @@ let chosenOperator = null;
 
 function attachButtonListeners() {
   const numberButtons = document.querySelectorAll('.number');
-  numberButtons.forEach(button => {
+  numberButtons.forEach((button) => {
     button.onclick = () => updateInput(button.id);
   });
 
@@ -15,32 +15,32 @@ function attachButtonListeners() {
   clearButton.onclick = () => clearScreen();
 
   const operatorButtons = document.querySelectorAll('.operator');
-  operatorButtons.forEach(button => {
+  operatorButtons.forEach((button) => {
     button.onclick = () => saveFirstOperand(button.id);
-  })
+  });
 
   const equalButton = document.getElementById('equals');
   equalButton.onclick = () => {
     console.log('calculating');
     let result = operate(chosenOperator, firstOperand, numbersInput);
     console.log(result);
-  }
+  };
 }
 
 function updateInput(number) {
-  if (numbersInput == 0) { // Prevent leading zeros
+  // Prevent leading zeros
+  if (numbersInput == 0) {
     numbersInput = '';
-  }
-  else if ((numbersInput == 0) && (number == 0)) { // Prevent adding 0 to 0
+    // Prevent adding 0 to 0
+  } else if (numbersInput == 0 && number == 0) {
     return;
-  }
-  else if (numbersInput.length == 8) { // Limit display to 8 characters
+    // Limit display to 8 characters
+  } else if (numbersInput.length == 8) {
     return;
   }
   // Append new input
   numbersInput += number;
   updateDisplay(numbersInput);
-
 }
 
 function saveFirstOperand(operator) {
@@ -89,7 +89,7 @@ function operate(operator, a, b) {
 
   a = parseInt(a);
   b = parseInt(b);
-  
+
   switch (operator) {
     case 'add':
       return add(a, b);
