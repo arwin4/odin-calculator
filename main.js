@@ -12,7 +12,7 @@ function attachButtonListeners() {
   numberButtons.forEach((button) => {
     button.onclick = () => {
       toggleWaiting('number-pressed');
-      handleInput(button.id);
+      handleDigitInput(button.id);
     };
   });
 
@@ -32,7 +32,7 @@ function attachButtonListeners() {
   equalButton.onclick = () => showResult();
 }
 
-function handleInput(number) {
+function handleDigitInput(number) {
   // If this is the first digit, save number in number in currentDisplay
   if (currentDisplay === null) {
     currentDisplay = number;
