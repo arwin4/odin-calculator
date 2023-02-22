@@ -1,14 +1,19 @@
 attachButtonListeners();
 
-let numbersInput = 0;
+let currentDisplay = null;
 let firstOperand = null;
 let secondOperand = null;
 let chosenOperator = null;
+let result = null;
+let operatorPressed = false;
 
 function attachButtonListeners() {
   const numberButtons = document.querySelectorAll('.number');
   numberButtons.forEach((button) => {
-    button.onclick = () => handleInput(button.id);
+    button.onclick = () => {
+      toggleWaiting('number-pressed');
+      handleInput(button.id);
+    };
   });
 
   const clearButton = document.getElementById('clear');
@@ -16,51 +21,92 @@ function attachButtonListeners() {
 
   const operatorButtons = document.querySelectorAll('.operator');
   operatorButtons.forEach((button) => {
-    button.onclick = () => tryCalculation(button.id);
+    button.onclick = () => {
+      chosenOperator = button.id;
+      toggleWaiting('operator-pressed');
+      operatorPressed = true;
+    };
   });
 
   const equalButton = document.getElementById('equals');
-  equalButton.onclick = () => {
-    console.log('calculating');
-    let result = operate(chosenOperator, firstOperand, numbersInput);
-    console.log(result);
-  };
+  equalButton.onclick = () => showResult();
 }
 
 function handleInput(number) {
-  // Prevent leading zeros
-  if (numbersInput == 0) {
-    numbersInput = '';
-    // Prevent adding 0 to 0
-  } else if (numbersInput == 0 && number == 0) {
-    return;
-    // Limit display to 8 characters
-  } else if (numbersInput.length == 8) {
-    return;
+  // If this is the first digit, save number in number in currentDisplay
+  if (currentDisplay === null) {
+    currentDisplay = number;
+    updateDisplay(currentDisplay);
   }
-  // Append new input
-  numbersInput += number;
-  updateDisplay(numbersInput);
+  // Limit display to 8 characters
+  // if (currentDisplay.length == 8) {
+  //   return;
+  // }
+
+  // Save current operand
+  // If it's the second operand, save or update it
+  if (firstOperand !== null && operatorPressed === true) {
+    // Save it if it's the first digit
+    if (secondOperand === null) {
+      secondOperand = currentDisplay;
+      console.log(
+        'second operand has been set for the first time: ' + secondOperand
+      );
+      // Append the digit it's it's not the first
+    } else {
+      secondOperand += number;
+      console.log('second operand was updated to ' + secondOperand);
+      currentDisplay = secondOperand;
+    }
+    // Save it if it's the first digit
+  } else if (firstOperand === null) {
+    firstOperand = currentDisplay;
+    console.log(
+      'first operand has been set for the first time: ' + firstOperand
+    );
+    // Append the digit it's it's not the first
+  } else {
+    firstOperand += number;
+    console.log('first operand was updated to ' + firstOperand);
+    currentDisplay = firstOperand;
+  }
+
+  updateDisplay(currentDisplay);
 }
 
-function tryCalculation(operator) {
-  // If this is the first input, save the operand
-  if (firstOperand === null) {
-    firstOperand = numbersInput;
-    console.log('first operand is ' + firstOperand);
-    chosenOperator = operator;
-    console.log('the operator is ' + chosenOperator);
-    clearScreen();
-  } else {
-    secondOperand = numbersInput
-    operate(chosenOperator, firstOperand,)
-  } 
+function toggleWaiting(event) {
+  display = getDisplay();
+  if (event === 'operator-pressed') {
+    display.textContent = '_';
+    currentDisplay = null;
+  }
+  // if (event === 'number-pressed') {
+  //   if (currentDisplay === null) {
+  //     display.classList.toggle('waiting');
+  //   } else if (currentDisplay === firstOperand) {
+  //     display.classList.toggle('waiting');
+  //   } else {
+  //     return;
+  //   }
+  // } else if (event === 'operator-pressed') {
+  //   display.textContent = '_';
+  //   display.classList.toggle('waiting');
+  // }
+}
+
+function showResult() {
+  result = operate(chosenOperator, firstOperand, currentDisplay);
+  console.log('calculating');
+  console.log(result);
+  display = getDisplay();
+  display.textContent = result;
 }
 
 function clearScreen() {
   display = getDisplay();
-  numbersInput = 0;
-  display.textContent = numbersInput;
+  currentDisplay = null;
+
+  display.textContent = currentDisplay;
 }
 
 function getDisplay() {
