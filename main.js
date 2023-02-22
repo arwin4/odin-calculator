@@ -95,6 +95,11 @@ function toggleWaiting(event) {
 }
 
 function showResult() {
+  if (
+    (chosenOperator === null, firstOperand === null, secondOperand === null)
+  ) {
+    return;
+  }
   result = operate(chosenOperator, firstOperand, currentDisplay);
   console.log('calculating');
   console.log(result);
