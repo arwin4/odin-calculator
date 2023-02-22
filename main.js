@@ -8,7 +8,7 @@ let chosenOperator = null;
 function attachButtonListeners() {
   const numberButtons = document.querySelectorAll('.number');
   numberButtons.forEach((button) => {
-    button.onclick = () => updateInput(button.id);
+    button.onclick = () => handleInput(button.id);
   });
 
   const clearButton = document.getElementById('clear');
@@ -16,7 +16,7 @@ function attachButtonListeners() {
 
   const operatorButtons = document.querySelectorAll('.operator');
   operatorButtons.forEach((button) => {
-    button.onclick = () => saveFirstOperand(button.id);
+    button.onclick = () => tryCalculation(button.id);
   });
 
   const equalButton = document.getElementById('equals');
@@ -27,7 +27,7 @@ function attachButtonListeners() {
   };
 }
 
-function updateInput(number) {
+function handleInput(number) {
   // Prevent leading zeros
   if (numbersInput == 0) {
     numbersInput = '';
@@ -43,12 +43,18 @@ function updateInput(number) {
   updateDisplay(numbersInput);
 }
 
-function saveFirstOperand(operator) {
-  firstOperand = numbersInput;
-  console.log('first operand is ' + firstOperand);
-  chosenOperator = operator;
-  console.log('the operator is ' + chosenOperator);
-  clearScreen();
+function tryCalculation(operator) {
+  // If this is the first input, save the operand
+  if (firstOperand === null) {
+    firstOperand = numbersInput;
+    console.log('first operand is ' + firstOperand);
+    chosenOperator = operator;
+    console.log('the operator is ' + chosenOperator);
+    clearScreen();
+  } else {
+    secondOperand = numbersInput
+    operate(chosenOperator, firstOperand,)
+  } 
 }
 
 function clearScreen() {
