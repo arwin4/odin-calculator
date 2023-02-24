@@ -1,4 +1,5 @@
 attachButtonListeners();
+attachKeyboardListener();
 
 let firstOperand = null;
 let secondOperand = null;
@@ -23,6 +24,39 @@ function attachButtonListeners() {
 
   const equalButton = document.getElementById('equals');
   equalButton.onclick = () => handleEquals();
+}
+
+function attachKeyboardListener() {
+  document.addEventListener('keydown', (e) => {
+    handleKeyboardInput(e.key);
+    e.preventDefault();
+    // TODO: prevent default should only prevent unwanted inputs
+  });
+}
+
+function handleKeyboardInput(key) {
+  switch (key) {
+    case '=':
+      handleEquals();
+      break;
+    case 'Delete':
+      handleClear();
+      break;
+    case '+':
+      handleOperator('add');
+      break;
+    case '-':
+      handleOperator('subtract');
+      break;
+    case '*':
+      handleOperator('multiply');
+      break;
+    case '/':
+      handleOperator('divide');
+      break;
+    default:
+      console.log('error');
+  }
 }
 
 // Update the operands and show the input on the screen
