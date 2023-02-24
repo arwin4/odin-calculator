@@ -69,26 +69,7 @@ function handleOperatorClick(operator) {
     return;
   }
   chosenOperator = operator;
-  // toggleWaiting('operator-pressed');
   operatorPressed = true;
-}
-
-function toggleWaiting(event) {
-  if (event === 'operator-pressed' || event === 'clear') {
-    updateDisplay('_');
-  }
-  // if (event === 'digit-pressed') {
-  //   if (currentDisplay === null) {
-  //     display.classList.toggle('waiting');
-  //   } else if (currentDisplay === firstOperand) {
-  //     display.classList.toggle('waiting');
-  //   } else {
-  //     return;
-  //   }
-  // } else if (event === 'operator-pressed') {
-  //   display.textContent = '_';
-  //   display.classList.toggle('waiting');
-  // }
 }
 
 function handleEqualsClick() {
@@ -121,7 +102,6 @@ function showResult() {
 }
 
 function acceptNewInput() {
-  // toggleWaiting('clear');
   firstOperand = null;
   secondOperand = null;
   chosenOperator = null;
