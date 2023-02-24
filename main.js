@@ -1,5 +1,3 @@
-// TODO: reset properly after 'equals' is pressed. make firstoperand = result, clear secondoperand, clear operandpressed
-
 attachButtonListeners();
 
 let firstOperand = null;
@@ -7,6 +5,7 @@ let secondOperand = null;
 let chosenOperator = null;
 let result = null;
 let operatorPressed = false;
+let equalsPressed = false;
 
 function attachButtonListeners() {
   const digitButtons = document.querySelectorAll('.digit');
@@ -28,8 +27,13 @@ function attachButtonListeners() {
 
 // Update the operands and show the input on the screen
 function handleDigitInput(digit) {
-  display = getDisplay();
+  /* Accept input from scratch when equals has been pressed and the user isn't
+  currently doing a calculation. */
+  if (equalsPressed === true && operatorPressed === false) {
+    clearScreen();
+  }
 
+  display = getDisplay();
   if (operatorPressed === false) {
     // If the operator hasn't been pressed, the first operand is being entered.
     if (firstOperand === null) {
@@ -90,6 +94,8 @@ function toggleWaiting(event) {
 }
 
 function handleEqualsClick() {
+  equalsPressed = true;
+
   // Ignore button click if necessary information for the operation is missing
   if (
     chosenOperator === null ||
@@ -123,6 +129,8 @@ function clearScreen() {
   secondOperand = null;
   chosenOperator = null;
   result = null;
+  operatorPressed = false;
+  equalsPressed = false;
 }
 
 function getDisplay() {
