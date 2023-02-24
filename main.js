@@ -8,13 +8,10 @@ let result = null;
 let operatorPressed = false;
 
 function attachButtonListeners() {
-  const numberButtons = document.querySelectorAll('.number');
-  numberButtons.forEach((button) => {
-    button.onclick = () => {
-      toggleWaiting('number-pressed');
-      handleDigitInput(button.id);
-    };
-  });
+  const digitButtons = document.querySelectorAll('.digit');
+  digitButtons.forEach(
+    (button) => (button.onclick = () => handleDigitInput(button.id))
+  );
 
   const clearButton = document.getElementById('clear');
   clearButton.onclick = () => clearScreen();
@@ -32,10 +29,10 @@ function attachButtonListeners() {
   equalButton.onclick = () => showResult();
 }
 
-function handleDigitInput(number) {
-  // If this is the first digit, save number in number in currentDisplay
+function handleDigitInput(digit) {
+  // If this is the first digit, save digit in currentDisplay
   if (currentDisplay === null) {
-    currentDisplay = number;
+    currentDisplay = digit;
     updateDisplay(currentDisplay);
   }
   // Limit display to 8 characters
@@ -54,7 +51,7 @@ function handleDigitInput(number) {
       );
       // Append the digit it's it's not the first
     } else {
-      secondOperand += number;
+      secondOperand += digit;
       console.log('second operand was updated to ' + secondOperand);
       currentDisplay = secondOperand;
     }
@@ -66,7 +63,7 @@ function handleDigitInput(number) {
     );
     // Append the digit it's it's not the first
   } else {
-    firstOperand += number;
+    firstOperand += digit;
     console.log('first operand was updated to ' + firstOperand);
     currentDisplay = firstOperand;
   }
@@ -80,7 +77,7 @@ function toggleWaiting(event) {
     display.textContent = '_';
     currentDisplay = null;
   }
-  // if (event === 'number-pressed') {
+  // if (event === 'digit-pressed') {
   //   if (currentDisplay === null) {
   //     display.classList.toggle('waiting');
   //   } else if (currentDisplay === firstOperand) {
