@@ -76,7 +76,7 @@ function handleDigitInput(number) {
 
 function toggleWaiting(event) {
   display = getDisplay();
-  if (event === 'operator-pressed') {
+  if (event === 'operator-pressed' || event === 'clear') {
     display.textContent = '_';
     currentDisplay = null;
   }
@@ -108,10 +108,12 @@ function showResult() {
 }
 
 function clearScreen() {
-  display = getDisplay();
-  currentDisplay = null;
-
-  display.textContent = currentDisplay;
+  toggleWaiting('clear');
+  firstOperand = null;
+  secondOperand = null;
+  chosenOperator = null;
+  operatorPressed = false;
+  result = null;
 }
 
 function getDisplay() {
