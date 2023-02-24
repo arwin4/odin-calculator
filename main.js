@@ -68,6 +68,8 @@ function handleDigitInput(digit) {
 }
 
 function handleOperatorPress(operator) {
+  // Ignore button press if no digit has been entered
+  if (firstOperand === null) return;
   chosenOperator = operator;
   toggleWaiting('operator-pressed');
   operatorPressed = true;
