@@ -18,11 +18,7 @@ function attachButtonListeners() {
 
   const operatorButtons = document.querySelectorAll('.operator');
   operatorButtons.forEach((button) => {
-    button.onclick = () => {
-      chosenOperator = button.id;
-      toggleWaiting('operator-pressed');
-      operatorPressed = true;
-    };
+    button.onclick = () => handleOperatorPress(button.id);
   });
 
   const equalButton = document.getElementById('equals');
@@ -69,6 +65,12 @@ function handleDigitInput(digit) {
   }
 
   updateDisplay(currentDisplay);
+}
+
+function handleOperatorPress(operator) {
+  chosenOperator = operator;
+  toggleWaiting('operator-pressed');
+  operatorPressed = true;
 }
 
 function toggleWaiting(event) {
