@@ -30,6 +30,11 @@ function handleDigitInput(digit) {
   if (currentDisplay === null) {
     currentDisplay = digit;
     updateDisplay(currentDisplay);
+  } else if (operatorPressed === true) {
+    currentDisplay = digit;
+    updateDisplay(currentDisplay);
+    secondOperand = digit;
+    return;
   }
   // Limit display to 8 characters
   // if (currentDisplay.length == 8) {
@@ -70,8 +75,19 @@ function handleDigitInput(digit) {
 function handleOperatorPress(operator) {
   // Ignore button press if no digit has been entered
   if (firstOperand === null) return;
+  // if first and second operator are present:
+  //    calculate and show result.
+  //    then the first operator gets the value of the second, and the second
+  //    is set to null.
+  // if the second operator is not present, continue
+  if (firstOperand !== null && secondOperand !== null) {
+    showResult();
+    chosenOperator = operator;
+    secondOperand = null;
+    return;
+  }
   chosenOperator = operator;
-  toggleWaiting('operator-pressed');
+  // toggleWaiting('operator-pressed');
   operatorPressed = true;
 }
 
@@ -104,15 +120,19 @@ function showResult() {
   ) {
     return;
   }
-  result = operate(chosenOperator, firstOperand, currentDisplay);
+  result = operate(chosenOperator, firstOperand, secondOperand);
   console.log('calculating');
   console.log(result);
+  // Allow subsequent operations to use current result
+  firstOperand = result;
+  chosenOperator = null;
   display = getDisplay();
-  display.textContent = result;
+  currentDisplay = result;
+  display.textContent = currentDisplay;
 }
 
 function clearScreen() {
-  toggleWaiting('clear');
+  // toggleWaiting('clear');
   firstOperand = null;
   secondOperand = null;
   chosenOperator = null;
