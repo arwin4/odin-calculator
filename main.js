@@ -14,7 +14,10 @@ function attachButtonListeners() {
   );
 
   const clearButton = document.getElementById('clear');
-  clearButton.onclick = () => acceptNewInput();
+  clearButton.onclick = () => {
+    acceptNewInput();
+    updateDisplay('_');
+  };
 
   const operatorButtons = document.querySelectorAll('.operator');
   operatorButtons.forEach((button) => {
@@ -59,7 +62,7 @@ function handleOperatorClick(operator) {
   if (firstOperand === null) return;
 
   if (firstOperand !== null && secondOperand !== null) {
-      /* Calculate and show intermediate result when user adds another operation.
+    /* Calculate and show intermediate result when user adds another operation.
       Then update operator. */
     showResult();
     chosenOperator = operator;
