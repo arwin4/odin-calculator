@@ -28,7 +28,7 @@ function attachButtonListeners() {
 // Update the operands and show the input on the screen
 function handleDigitInput(digit) {
   display = getDisplay();
-  console.log(currentDisplay);
+
   if (operatorPressed === false) {
     // If the operator hasn't been pressed, the first operand is being entered.
     if (firstOperand === null) {
