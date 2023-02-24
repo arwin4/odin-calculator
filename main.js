@@ -25,51 +25,29 @@ function attachButtonListeners() {
   equalButton.onclick = () => showResult();
 }
 
+// Update the operands and show the input on the screen
 function handleDigitInput(digit) {
-  // If this is the first digit, save digit in currentDisplay
-  if (currentDisplay === null) {
-    currentDisplay = digit;
-    updateDisplay(currentDisplay);
+  display = getDisplay();
+  console.log(currentDisplay);
+  if (operatorPressed === false) {
+    // If the operator hasn't been pressed, the first operand is being entered.
+    if (firstOperand === null) {
+      /* If this is the first digit that is entered, save it as the first operand. 
+      Else, append the new digit to the operand. */
+      firstOperand = digit;
+    } else {
+      firstOperand += digit;
+    }
+    display.textContent = firstOperand;
   } else if (operatorPressed === true) {
-    currentDisplay = digit;
-    updateDisplay(currentDisplay);
-    secondOperand = digit;
-    return;
-  }
-  // Limit display to 8 characters
-  // if (currentDisplay.length == 8) {
-  //   return;
-  // }
-
-  // Save current operand
-  // If it's the second operand, save or update it
-  if (firstOperand !== null && operatorPressed === true) {
-    // Save it if it's the first digit
+    // If the operator has been pressed, save or update the second operand.
     if (secondOperand === null) {
-      secondOperand = currentDisplay;
-      console.log(
-        'second operand has been set for the first time: ' + secondOperand
-      );
-      // Append the digit it's it's not the first
+      secondOperand = digit;
     } else {
       secondOperand += digit;
-      console.log('second operand was updated to ' + secondOperand);
-      currentDisplay = secondOperand;
     }
-    // Save it if it's the first digit
-  } else if (firstOperand === null) {
-    firstOperand = currentDisplay;
-    console.log(
-      'first operand has been set for the first time: ' + firstOperand
-    );
-    // Append the digit it's it's not the first
-  } else {
-    firstOperand += digit;
-    console.log('first operand was updated to ' + firstOperand);
-    currentDisplay = firstOperand;
+    display.textContent = secondOperand;
   }
-
-  updateDisplay(currentDisplay);
 }
 
 function handleOperatorPress(operator) {
@@ -123,9 +101,12 @@ function showResult() {
   result = operate(chosenOperator, firstOperand, secondOperand);
   console.log('calculating');
   console.log(result);
+
   // Allow subsequent operations to use current result
   firstOperand = result;
   chosenOperator = null;
+
+  // Show the result
   display = getDisplay();
   currentDisplay = result;
   display.textContent = currentDisplay;
