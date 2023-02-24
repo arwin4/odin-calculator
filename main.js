@@ -96,8 +96,11 @@ function toggleWaiting(event) {
 }
 
 function showResult() {
+  // Ignore button press if necessary information for the operation is missing
   if (
-    (chosenOperator === null, firstOperand === null, secondOperand === null)
+    chosenOperator === null ||
+    firstOperand === null ||
+    secondOperand === null
   ) {
     return;
   }
