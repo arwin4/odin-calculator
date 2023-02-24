@@ -10,26 +10,23 @@ let equalsPressed = false;
 function attachButtonListeners() {
   const digitButtons = document.querySelectorAll('.digit');
   digitButtons.forEach(
-    (button) => (button.onclick = () => handleDigitInput(button.id))
+    (button) => (button.onclick = () => handleDigit(button.id))
   );
 
   const clearButton = document.getElementById('clear');
-  clearButton.onclick = () => {
-    acceptNewInput();
-    updateDisplay('_');
-  };
+  clearButton.onclick = () => handleClear();
 
   const operatorButtons = document.querySelectorAll('.operator');
   operatorButtons.forEach((button) => {
-    button.onclick = () => handleOperatorClick(button.id);
+    button.onclick = () => handleOperator(button.id);
   });
 
   const equalButton = document.getElementById('equals');
-  equalButton.onclick = () => handleEqualsClick();
+  equalButton.onclick = () => handleEquals();
 }
 
 // Update the operands and show the input on the screen
-function handleDigitInput(digit) {
+function handleDigit(digit) {
   /* Accept input from scratch when equals has been pressed and the user isn't
   currently doing a calculation. */
   if (equalsPressed === true && operatorPressed === false) {
@@ -57,7 +54,12 @@ function handleDigitInput(digit) {
   }
 }
 
-function handleOperatorClick(operator) {
+function handleClear() {
+  acceptNewInput();
+  updateDisplay('_');
+}
+
+function handleOperator(operator) {
   // Ignore button press if no digit has been entered
   if (firstOperand === null) return;
 
@@ -73,7 +75,7 @@ function handleOperatorClick(operator) {
   }
 }
 
-function handleEqualsClick() {
+function handleEquals() {
   equalsPressed = true;
 
   // Ignore button click if necessary information for the operation is missing
