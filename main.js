@@ -1,6 +1,5 @@
 // TODO: reset properly after 'equals' is pressed. make firstoperand = result, clear secondoperand, clear operandpressed
 
-
 attachButtonListeners();
 
 let firstOperand = null;
@@ -20,11 +19,11 @@ function attachButtonListeners() {
 
   const operatorButtons = document.querySelectorAll('.operator');
   operatorButtons.forEach((button) => {
-    button.onclick = () => handleOperatorPress(button.id);
+    button.onclick = () => handleOperatorClick(button.id);
   });
 
   const equalButton = document.getElementById('equals');
-  equalButton.onclick = () => showResult();
+  equalButton.onclick = () => handleEqualsClick();
 }
 
 // Update the operands and show the input on the screen
@@ -52,7 +51,7 @@ function handleDigitInput(digit) {
   }
 }
 
-function handleOperatorPress(operator) {
+function handleOperatorClick(operator) {
   // Ignore button press if no digit has been entered
   if (firstOperand === null) return;
   // if first and second operator are present:
@@ -90,21 +89,27 @@ function toggleWaiting(event) {
   // }
 }
 
-function showResult() {
-  // Ignore button press if necessary information for the operation is missing
+function handleEqualsClick() {
+  // Ignore button click if necessary information for the operation is missing
   if (
     chosenOperator === null ||
     firstOperand === null ||
     secondOperand === null
-  ) {
+  )
     return;
+  else {
+    showResult();
+    operatorPressed = false;
   }
+}
+
+function showResult() {
   result = operate(chosenOperator, firstOperand, secondOperand);
-  console.log('calculating');
   console.log(result);
 
   // Allow subsequent operations to use current result
   firstOperand = result;
+  secondOperand = null;
   chosenOperator = null;
 
   // Show the result
@@ -117,7 +122,6 @@ function clearScreen() {
   firstOperand = null;
   secondOperand = null;
   chosenOperator = null;
-  operatorPressed = false;
   result = null;
 }
 
