@@ -35,27 +35,48 @@ function attachKeyboardListener() {
 }
 
 function handleKeyboardInput(key) {
+  console.log('handling keyboard input... ' + key);
   switch (key) {
+    case '0':
+    case '1':
+    case '2':
+    case '3':
+    case '4':
+    case '5':
+    case '6':
+    case '7':
+    case '8':
+    case '9':
+      handleDigit(key);
+      break;
+
     case '=':
+    case 'Enter':
       handleEquals();
       break;
+
     case 'Delete':
       handleClear();
       break;
+
     case '+':
       handleOperator('add');
       break;
+
     case '-':
       handleOperator('subtract');
       break;
+
     case '*':
       handleOperator('multiply');
       break;
+
     case '/':
       handleOperator('divide');
       break;
+
     default:
-      console.log('error');
+      console.log('Unset key. Key pressed: ' + key + typeof key);
   }
 }
 
