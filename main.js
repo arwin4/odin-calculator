@@ -33,7 +33,6 @@ function handleDigitInput(digit) {
     acceptNewInput();
   }
 
-  display = getDisplay();
   if (operatorPressed === false) {
     // If the operator hasn't been pressed, the first operand is being entered.
     if (firstOperand === null) {
@@ -43,7 +42,7 @@ function handleDigitInput(digit) {
     } else {
       firstOperand += digit;
     }
-    display.textContent = firstOperand;
+    updateDisplay(firstOperand);
   } else if (operatorPressed === true) {
     // If the operator has been pressed, save or update the second operand.
     if (secondOperand === null) {
@@ -51,7 +50,7 @@ function handleDigitInput(digit) {
     } else {
       secondOperand += digit;
     }
-    display.textContent = secondOperand;
+    updateDisplay(secondOperand);
   }
 }
 
@@ -75,9 +74,8 @@ function handleOperatorClick(operator) {
 }
 
 function toggleWaiting(event) {
-  display = getDisplay();
   if (event === 'operator-pressed' || event === 'clear') {
-    display.textContent = '_';
+    updateDisplay('_');
   }
   // if (event === 'digit-pressed') {
   //   if (currentDisplay === null) {
@@ -119,8 +117,7 @@ function showResult() {
   chosenOperator = null;
 
   // Show the result
-  display = getDisplay();
-  display.textContent = result;
+  updateDisplay(result);
 }
 
 function acceptNewInput() {
@@ -133,13 +130,9 @@ function acceptNewInput() {
   equalsPressed = false;
 }
 
-function getDisplay() {
-  return document.querySelector('.display');
-}
-
-function updateDisplay(input) {
-  display = getDisplay();
-  display.textContent = input;
+function updateDisplay(newContent) {
+  const display = document.querySelector('.display');
+  display.textContent = newContent;
 }
 
 // Arithmetic
