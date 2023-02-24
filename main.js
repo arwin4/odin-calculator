@@ -1,6 +1,8 @@
+// TODO: reset properly after 'equals' is pressed. make firstoperand = result, clear secondoperand, clear operandpressed
+
+
 attachButtonListeners();
 
-let currentDisplay = null;
 let firstOperand = null;
 let secondOperand = null;
 let chosenOperator = null;
@@ -73,7 +75,6 @@ function toggleWaiting(event) {
   display = getDisplay();
   if (event === 'operator-pressed' || event === 'clear') {
     display.textContent = '_';
-    currentDisplay = null;
   }
   // if (event === 'digit-pressed') {
   //   if (currentDisplay === null) {
@@ -108,8 +109,7 @@ function showResult() {
 
   // Show the result
   display = getDisplay();
-  currentDisplay = result;
-  display.textContent = currentDisplay;
+  display.textContent = result;
 }
 
 function clearScreen() {
