@@ -14,7 +14,7 @@ function attachButtonListeners() {
   );
 
   const clearButton = document.getElementById('clear');
-  clearButton.onclick = () => clearScreen();
+  clearButton.onclick = () => acceptNewInput();
 
   const operatorButtons = document.querySelectorAll('.operator');
   operatorButtons.forEach((button) => {
@@ -30,15 +30,15 @@ function handleDigitInput(digit) {
   /* Accept input from scratch when equals has been pressed and the user isn't
   currently doing a calculation. */
   if (equalsPressed === true && operatorPressed === false) {
-    clearScreen();
+    acceptNewInput();
   }
 
   display = getDisplay();
   if (operatorPressed === false) {
     // If the operator hasn't been pressed, the first operand is being entered.
     if (firstOperand === null) {
-      /* If this is the first digit that is entered, save it as the first operand. 
-      Else, append the new digit to the operand. */
+      /* If this is the first digit that is entered, save it as the first 
+      operand. Else, append the new digit to the operand. */
       firstOperand = digit;
     } else {
       firstOperand += digit;
@@ -123,7 +123,7 @@ function showResult() {
   display.textContent = result;
 }
 
-function clearScreen() {
+function acceptNewInput() {
   // toggleWaiting('clear');
   firstOperand = null;
   secondOperand = null;
