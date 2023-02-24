@@ -57,19 +57,17 @@ function handleDigitInput(digit) {
 function handleOperatorClick(operator) {
   // Ignore button press if no digit has been entered
   if (firstOperand === null) return;
-  // if first and second operator are present:
-  //    calculate and show result.
-  //    then the first operator gets the value of the second, and the second
-  //    is set to null.
-  // if the second operator is not present, continue
+
   if (firstOperand !== null && secondOperand !== null) {
+      /* Calculate and show intermediate result when user adds another operation.
+      Then update operator. */
     showResult();
     chosenOperator = operator;
-    secondOperand = null;
     return;
+  } else {
+    chosenOperator = operator;
+    operatorPressed = true;
   }
-  chosenOperator = operator;
-  operatorPressed = true;
 }
 
 function handleEqualsClick() {
@@ -95,7 +93,6 @@ function showResult() {
   // Allow subsequent operations to use current result
   firstOperand = result;
   secondOperand = null;
-  chosenOperator = null;
 
   // Show the result
   updateDisplay(result);
