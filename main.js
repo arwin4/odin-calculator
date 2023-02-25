@@ -11,7 +11,7 @@ let equalsPressed = false;
 function attachButtonListeners() {
   const digitButtons = document.querySelectorAll('.digit');
   digitButtons.forEach(
-    (button) => (button.onclick = () => handleDigit(button.id))
+    (button) => (button.onclick = () => handleOperandInput(button.id))
   );
 
   const clearButton = document.getElementById('clear');
@@ -26,7 +26,7 @@ function attachButtonListeners() {
   equalButton.onclick = () => handleEquals();
 
   const periodButton = document.getElementById('.');
-  periodButton.onclick = () => handleDigit('.');
+  periodButton.onclick = () => handleOperandInput('.');
 }
 
 function attachKeyboardListener() {
@@ -50,7 +50,7 @@ function handleKeyboardInput(key) {
     case '7':
     case '8':
     case '9':
-      handleDigit(key);
+      handleOperandInput(key);
       break;
 
     case '=':
@@ -60,7 +60,7 @@ function handleKeyboardInput(key) {
 
     case '.':
     case ',':
-      handleDecimalPoint('.');
+      handleOperandInput('.');
       break;
 
     case 'Delete':
@@ -89,15 +89,8 @@ function handleKeyboardInput(key) {
 }
 
 // Update the operands and show the input on the screen
-function handleDigit(digit) {
-  /* Accept input from scratch when equals has been pressed and the user isn't
-  currently doing a calculation. */
-  if (equalsPressed === true && operatorPressed === false) {
-    acceptNewInput();
-  }
-
-  if (operatorPressed === false) {
-    // If the operator hasn't been pressed, the first operand is being entered.
+function handleDigit(digit, currentOperand) {
+  if (currentOperand === 'first') {
     if (firstOperand === null) {
       /* If this is the first digit that is entered, save it as the first 
       operand. Else, append the new digit to the operand. */
@@ -106,7 +99,10 @@ function handleDigit(digit) {
       firstOperand += digit;
     }
     updateDisplay(firstOperand);
-  } else if (operatorPressed === true) {
+    return;
+  }
+
+  if (currentOperand === 'second') {
     // If the operator has been pressed, save or update the second operand.
     if (secondOperand === null) {
       secondOperand = digit;
@@ -114,6 +110,7 @@ function handleDigit(digit) {
       secondOperand += digit;
     }
     updateDisplay(secondOperand);
+    return;
   }
 }
 
@@ -154,16 +151,9 @@ function handleEquals() {
   }
 }
 
-function handleDecimalPoint() {
+function handleDecimalPoint(currentOperand) {
   // TODO: round decimals
-
-  /* Accept input from scratch when equals has been pressed and the user isn't
-  currently doing a calculation. */
-  if (equalsPressed === true && operatorPressed === false) {
-    acceptNewInput();
-  }
-
-  if (operatorPressed === false) {
+  if (currentOperand === 'first') {
     try {
       if (firstOperand.includes('.')) return;
       firstOperand += '.';
@@ -175,7 +165,7 @@ function handleDecimalPoint() {
     return;
   }
 
-  if (operatorPressed === true) {
+  if (currentOperand === 'second') {
     try {
       if (secondOperand.includes('.')) return;
       secondOperand += '.';
@@ -185,6 +175,36 @@ function handleDecimalPoint() {
       updateDisplay(secondOperand);
     }
     return;
+  }
+}
+
+function handleOperandInput(input) {
+  /* Accept input from scratch when equals has been pressed and the user isn't
+  currently doing a calculation. */
+  if (equalsPressed === true && operatorPressed === false) {
+    acceptNewInput();
+  }
+
+  // If the operator hasn't been pressed, deal with the first operand.
+  if (operatorPressed === false) {
+    if (input === '.') {
+      handleDecimalPoint('first');
+      return;
+    } else {
+      handleDigit(input, 'first');
+      return;
+    }
+  }
+
+  // If the operator has been pressed, deal with the second operand.
+  if (operatorPressed === true) {
+    if (input === '.') {
+      handleDecimalPoint('second');
+      return;
+    } else {
+      handleDigit(input, 'second');
+      return;
+    }
   }
 }
 
