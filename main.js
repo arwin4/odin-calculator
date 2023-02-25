@@ -85,96 +85,7 @@ function handleKeyboardInput(key) {
   }
 }
 
-// Update the operands and show the input on the screen
-function handleDigit(digit, currentOperand) {
-  if (currentOperand === 'first') {
-    if (firstOperand === null) {
-      /* If this is the first digit that is entered, save it as the first 
-      operand. Else, append the new digit to the operand. */
-      firstOperand = digit;
-    } else {
-      firstOperand += digit;
-    }
-    updateDisplay(firstOperand);
-    return;
-  }
-
-  if (currentOperand === 'second') {
-    // If the operator has been pressed, save or update the second operand.
-    if (secondOperand === null) {
-      secondOperand = digit;
-    } else {
-      secondOperand += digit;
-    }
-    updateDisplay(secondOperand);
-    return;
-  }
-}
-
-function handleClear() {
-  acceptNewInput();
-  updateDisplay('_');
-}
-
-function handleOperator(operator) {
-  // Ignore button press if no digit has been entered
-  if (firstOperand === null) return;
-
-  if (firstOperand !== null && secondOperand !== null) {
-    /* Calculate and show intermediate result when user adds another operation.
-      Then update operator. */
-    showResult();
-    chosenOperator = operator;
-    return;
-  } else {
-    chosenOperator = operator;
-    operatorPressed = true;
-  }
-}
-
-function handleEquals() {
-  equalsPressed = true;
-
-  // Ignore button click if necessary information for the operation is missing
-  if (
-    chosenOperator === null ||
-    firstOperand === null ||
-    secondOperand === null
-  )
-    return;
-  else {
-    showResult();
-    operatorPressed = false;
-  }
-}
-
-function handleDecimalPoint(currentOperand) {
-  // TODO: round decimals
-  if (currentOperand === 'first') {
-    try {
-      if (firstOperand.includes('.')) return;
-      firstOperand += '.';
-      updateDisplay(firstOperand);
-    } catch {
-      firstOperand = '.';
-      updateDisplay(firstOperand);
-    }
-    return;
-  }
-
-  if (currentOperand === 'second') {
-    try {
-      if (secondOperand.includes('.')) return;
-      secondOperand += '.';
-      updateDisplay(secondOperand);
-    } catch {
-      secondOperand = '.';
-      updateDisplay(secondOperand);
-    }
-    return;
-  }
-}
-
+// Update the operand and show the input on the screen
 function handleOperandInput(input) {
   /* Accept input from scratch when equals has been pressed and the user isn't
   currently doing a calculation. */
@@ -205,6 +116,104 @@ function handleOperandInput(input) {
   }
 }
 
+function handleDigit(digit, currentOperand) {
+  if (currentOperand === 'first') {
+    if (firstOperand === null) {
+      /* If this is the first digit that is entered, save it as the first 
+      operand. Else, append the new digit to the operand. */
+      firstOperand = digit;
+    } else {
+      firstOperand += digit;
+    }
+    updateDisplay(firstOperand);
+    return;
+  }
+
+  if (currentOperand === 'second') {
+    // If the operator has been pressed, save or update the second operand.
+    if (secondOperand === null) {
+      secondOperand = digit;
+    } else {
+      secondOperand += digit;
+    }
+    updateDisplay(secondOperand);
+    return;
+  }
+}
+
+function handleDecimalPoint(currentOperand) {
+  // TODO: round decimals
+  if (currentOperand === 'first') {
+    try {
+      if (firstOperand.includes('.')) return;
+      firstOperand += '.';
+      updateDisplay(firstOperand);
+    } catch {
+      firstOperand = '.';
+      updateDisplay(firstOperand);
+    }
+    return;
+  }
+
+  if (currentOperand === 'second') {
+    try {
+      if (secondOperand.includes('.')) return;
+      secondOperand += '.';
+      updateDisplay(secondOperand);
+    } catch {
+      secondOperand = '.';
+      updateDisplay(secondOperand);
+    }
+    return;
+  }
+}
+
+function handleOperator(operator) {
+  // Ignore button press if no digit has been entered
+  if (firstOperand === null) return;
+
+  if (firstOperand !== null && secondOperand !== null) {
+    /* Calculate and show intermediate result when user adds another operation.
+      Then update operator. */
+    showResult();
+    chosenOperator = operator;
+    return;
+  } else {
+    chosenOperator = operator;
+    operatorPressed = true;
+  }
+}
+
+function handleClear() {
+  acceptNewInput();
+  updateDisplay('_');
+}
+
+function handleEquals() {
+  equalsPressed = true;
+
+  // Ignore button click if necessary information for the operation is missing
+  if (
+    chosenOperator === null ||
+    firstOperand === null ||
+    secondOperand === null
+  )
+    return;
+  else {
+    showResult();
+    operatorPressed = false;
+  }
+}
+
+function acceptNewInput() {
+  firstOperand = null;
+  secondOperand = null;
+  chosenOperator = null;
+  result = null;
+  operatorPressed = false;
+  equalsPressed = false;
+}
+
 function showResult() {
   result = operate(chosenOperator, firstOperand, secondOperand);
   console.log(result);
@@ -215,15 +224,6 @@ function showResult() {
 
   // Show the result
   updateDisplay(result);
-}
-
-function acceptNewInput() {
-  firstOperand = null;
-  secondOperand = null;
-  chosenOperator = null;
-  result = null;
-  operatorPressed = false;
-  equalsPressed = false;
 }
 
 function updateDisplay(newContent) {
