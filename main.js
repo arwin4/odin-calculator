@@ -95,6 +95,8 @@ function handleOperandInput(input) {
 
   // If the operator hasn't been pressed, deal with the first operand.
   if (operatorPressed === false) {
+    if (firstOperand?.length === 8) return; // Limit input to 8 characters
+
     if (input === '.') {
       handleDecimalPoint('first');
       return;
@@ -106,6 +108,8 @@ function handleOperandInput(input) {
 
   // If the operator has been pressed, deal with the second operand.
   if (operatorPressed === true) {
+    if (secondOperand?.length === 8) return; // Limit input to 8 characters
+
     if (input === '.') {
       handleDecimalPoint('second');
       return;
@@ -218,11 +222,19 @@ function showResult() {
   result = operate(chosenOperator, firstOperand, secondOperand);
   console.log(result);
 
+  // Reject result if length exceeds 12 and prepare for new input
+  if (result.toString().length > 12) {
+    acceptNewInput();
+    updateDisplay('too long');
+    return;
+  }
+
   // Allow subsequent operations to use current result
   firstOperand = result;
   secondOperand = null;
 
-  // Show the result
+  // Round the result to 4 decimals and show  it
+  result = Math.round(result * 10000) / 10000;
   updateDisplay(result);
 }
 
