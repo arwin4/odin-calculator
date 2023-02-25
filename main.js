@@ -13,8 +13,8 @@ function attachButtonListeners() {
     (button) => (button.onclick = () => handleOperandInput(button.id))
   );
 
-  const clearButton = document.getElementById('clear');
-  clearButton.onclick = () => handleClear();
+  const clearAllButton = document.getElementById('clear-all');
+  clearAllButton.onclick = () => handleClearAll();
 
   const operatorButtons = document.querySelectorAll('.operator');
   operatorButtons.forEach((button) => {
@@ -61,7 +61,7 @@ function handleKeyboardInput(key) {
       break;
 
     case 'Delete':
-      handleClear();
+      handleClearAll();
       break;
 
     case '+':
@@ -187,7 +187,7 @@ function handleOperator(operator) {
   }
 }
 
-function handleClear() {
+function handleClearAll() {
   acceptNewInput();
   updateDisplay('_');
 }
