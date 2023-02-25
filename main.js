@@ -1,5 +1,4 @@
 attachButtonListeners();
-attachKeyboardListener();
 
 let firstOperand = null;
 let secondOperand = null;
@@ -27,9 +26,7 @@ function attachButtonListeners() {
 
   const periodButton = document.getElementById('.');
   periodButton.onclick = () => handleOperandInput('.');
-}
 
-function attachKeyboardListener() {
   document.addEventListener('keydown', (e) => {
     handleKeyboardInput(e.key);
     e.preventDefault();
