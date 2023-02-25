@@ -146,7 +146,6 @@ function handleDigit(digit, currentOperand) {
 }
 
 function handleDecimalPoint(currentOperand) {
-  // TODO: round decimals
   if (currentOperand === 'first') {
     try {
       if (firstOperand.includes('.')) return;
