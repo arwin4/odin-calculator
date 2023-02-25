@@ -24,6 +24,9 @@ function attachButtonListeners() {
 
   const equalButton = document.getElementById('equals');
   equalButton.onclick = () => handleEquals();
+
+  const periodButton = document.getElementById('.');
+  periodButton.onclick = () => handleDigit('.');
 }
 
 function attachKeyboardListener() {
@@ -53,6 +56,11 @@ function handleKeyboardInput(key) {
     case '=':
     case 'Enter':
       handleEquals();
+      break;
+
+    case '.':
+    case ',':
+      handleDecimalPoint('.');
       break;
 
     case 'Delete':
@@ -146,6 +154,40 @@ function handleEquals() {
   }
 }
 
+function handleDecimalPoint() {
+  // TODO: round decimals
+
+  /* Accept input from scratch when equals has been pressed and the user isn't
+  currently doing a calculation. */
+  if (equalsPressed === true && operatorPressed === false) {
+    acceptNewInput();
+  }
+
+  if (operatorPressed === false) {
+    try {
+      if (firstOperand.includes('.')) return;
+      firstOperand += '.';
+      updateDisplay(firstOperand);
+    } catch {
+      firstOperand = '.';
+      updateDisplay(firstOperand);
+    }
+    return;
+  }
+
+  if (operatorPressed === true) {
+    try {
+      if (secondOperand.includes('.')) return;
+      secondOperand += '.';
+      updateDisplay(secondOperand);
+    } catch {
+      secondOperand = '.';
+      updateDisplay(secondOperand);
+    }
+    return;
+  }
+}
+
 function showResult() {
   result = operate(chosenOperator, firstOperand, secondOperand);
   console.log(result);
@@ -192,9 +234,8 @@ function divide(a, b) {
 
 function operate(operator, a, b) {
   // Calculates using the given operator
-
-  a = parseInt(a);
-  b = parseInt(b);
+  a = parseFloat(a);
+  b = parseFloat(b);
 
   switch (operator) {
     case 'add':
