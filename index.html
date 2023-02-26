@@ -7,6 +7,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <script src="main.js" defer></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=PT+Mono&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 
   <title>Calculator</title>
@@ -19,13 +23,13 @@ grid-area, but I'm going to dive into that when it comes up in the
 curriculum.-->
 
   <div class="calculator">
-    <div class="display">_</div>
+    <div class="display"> </div> <!-- Whitespace character-->
     <div class="buttons">
       <div class="row clear">
         <button id="clear-all">AC</button>
-        <button id="clear">C</button>
+        <!-- <button id="clear">C</button> -->
         <button class="operator" id="multiply">×</button>
-        <p class="operator-display"></p>
+        <p class="operator-display"> </p> <!-- Whitespace character-->
       </div>
       <div class="row numbers-1">
         <button class="digit" id="7">7</button>

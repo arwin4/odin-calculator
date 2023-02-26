@@ -190,7 +190,7 @@ function handleOperator(operator) {
 
 function handleClearAll() {
   acceptNewInput();
-  updateDisplay('_');
+  updateDisplay(' '); // Whitespace character
 }
 
 function handleEquals() {
@@ -254,9 +254,9 @@ function updateDisplay(newContent) {
 
 function showOperator() {
   const operatorSymbol = {
-    null: '',
+    null: ' ', // Whitespace character
     add: '+',
-    subtract: '-',
+    subtract: '—',
     multiply: '×',
     divide: '/',
   };

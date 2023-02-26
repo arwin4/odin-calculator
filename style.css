@@ -15,7 +15,7 @@ Blink when waiting for input
 */
 
 @font-face {
-  font-family: 'digital-7_monoitalic';
+  font-family: 'lcd';
   /* Font licensed free for personal use. */
   src: url('./fonts/digital7monoitalic-8mdlj-webfont.woff2') format('woff2'),
     url('./fonts/digital7monoitalic-8mdlj-webfont.woff') format('woff');
@@ -23,39 +23,86 @@ Blink when waiting for input
   font-style: normal;
 }
 
-.display {
-  font-family: digital-7_monoitalic, monospace;
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  margin: 0px;
+  height: 100vh;
+
+  background-color: lightgrey;
 }
 
 .calculator {
-  max-width: 250px;
+  padding: 5px 5px;
+  width: 300px;
   max-height: 350px;
-  border: 2px solid black;
+
+  border: 10px outset rgb(255, 174, 0);
+  box-shadow: 5px 5px rgb(59, 59, 59);
+
+  background-color: rgb(248, 248, 248);
+}
+
+.display {
+  padding-left: 10px;
+  padding-top: 2px;
+  margin: 5px 3px;
+
+  font-family: lcd, 'PT Mono', monospace;
+  font-size: 3em;
+
+  background-color: gainsboro;
+
+  border: 2px dashed rgba(0, 0, 0, 0.616);
 }
 
 .buttons {
   display: grid;
   grid-auto-rows: 50px;
-  grid-auto-columns: 250px;
 }
 
-.buttons * {
+.operator-display {
   font-size: 1em;
+  font-weight: 800;
+  justify-self: center;
 }
 
-.clear,
+.row {
+  display: grid;
+  align-items: center;
+}
+
+.clear {
+  grid-template-columns: 2fr 1fr 1fr;
+}
+
 .numbers-1,
 .numbers-2,
 .numbers-3 {
-  display: grid;
   grid-template-columns: repeat(4, 1fr);
 }
 
 .numbers-4 {
-  display: grid;
   grid-template-columns: 1fr 1fr 2fr;
 }
 
-.operator-display {
-  justify-self: center;
+button {
+  font-family: 'PT Mono', monospace;
+  font-size: 1.5em;
+  background-color: #e9e9ed;
+
+  margin: 0px 2px;
+  border: 1px solid black;
+  height: 45px;
+}
+
+button:hover {
+  background-color: #e0e0e0;
+}
+
+button:active {
+  background-color: #c2c2c2;
 }
