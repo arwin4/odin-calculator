@@ -1,0 +1,28 @@
+/*
+Source: https://stackoverflow.com/a/48320520
+Blink when waiting for input
+.waiting {
+  animation: blinkingText 1s step-start infinite;
+  margin-bottom: 5px;
+}
+
+@keyframes blinkingText {
+  50% {
+    opacity: 0;
+  }
+}
+
+*/
+
+@font-face {
+  font-family: 'digital-7_monoitalic';
+  /* Font licensed free for personal use. */
+  src: url('./fonts/digital7monoitalic-8mdlj-webfont.woff2') format('woff2'),
+    url('./fonts/digital7monoitalic-8mdlj-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.display {
+  font-family: digital-7_monoitalic, monospace;
+}

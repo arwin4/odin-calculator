@@ -242,8 +242,6 @@ function showResult() {
   firstOperand = result;
   secondOperand = null;
 
-  // Round the result to 4 decimals and show  it
-  result = Math.round(result * 10000) / 10000;
   updateDisplay(result);
 }
 
