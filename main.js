@@ -221,6 +221,16 @@ function showResult() {
   result = operate(chosenOperator, firstOperand, secondOperand);
   console.log(result);
 
+  // Show error after dividing by zero
+  if (result === 'just no') {
+    acceptNewInput();
+    updateDisplay('just no');
+    return;
+  }
+
+  // Round the result to 4 decimals
+  result = Math.round(result * 10000) / 10000;
+
   // Reject result if length exceeds 12 and prepare for new input
   if (result.toString().length > 12) {
     acceptNewInput();
