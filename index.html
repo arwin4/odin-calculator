@@ -13,34 +13,42 @@
 </head>
 
 <body>
+
+  <!-- The nesting here is quite deep, which I suspect could be changed using
+grid-area, but I'm going to dive into that when it comes up in the 
+curriculum.-->
+
   <div class="calculator">
     <div class="display">_</div>
-    <div class="row clear">
-      <button id="clear-all">AC</button>
-      <button id="clear">C</button>
-      <button class="operator" id="multiply">×</button>
-    <div class="row numbers-1">
-      <button class="digit" id="7">7</button>
-      <button class="digit" id="8">8</button>
-      <button class="digit" id="9">9</button>
-      <button class="operator" id="subtract">−</button>
-    </div>
-    <div class="row numbers-2">
-      <button class="digit" id="4">4</button>
-      <button class="digit" id="5">5</button>
-      <button class="digit" id="6">6</button>
-      <button class="operator" id="add">+</button>
-    </div>
-    <div class="row numbers-3">
-      <button class="digit" id="1">1</button>
-      <button class="digit" id="2">2</button>
-      <button class="digit" id="3">3</button>
-      <button class="operator" id="divide">/</button>
-    </div>
-    <div class="row numbers-4">
-      <button class="digit" id="0">0</button>
-      <button id=".">.</button>
-      <button id="equals">=</button>
+    <div class="buttons">
+      <div class="row clear">
+        <button id="clear-all">AC</button>
+        <button id="clear">C</button>
+        <button class="operator" id="multiply">×</button>
+      </div>
+      <div class="row numbers-1">
+        <button class="digit" id="7">7</button>
+        <button class="digit" id="8">8</button>
+        <button class="digit" id="9">9</button>
+        <button class="operator" id="subtract">−</button>
+      </div>
+      <div class="row numbers-2">
+        <button class="digit" id="4">4</button>
+        <button class="digit" id="5">5</button>
+        <button class="digit" id="6">6</button>
+        <button class="operator" id="add">+</button>
+      </div>
+      <div class="row numbers-3">
+        <button class="digit" id="1">1</button>
+        <button class="digit" id="2">2</button>
+        <button class="digit" id="3">3</button>
+        <button class="operator" id="divide">/</button>
+      </div>
+      <div class="row numbers-4">
+        <button class="digit" id="0">0</button>
+        <button id=".">.</button>
+        <button id="equals">=</button>
+      </div>
     </div>
   </div>
 </body>

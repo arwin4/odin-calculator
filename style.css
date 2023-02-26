@@ -26,3 +26,32 @@ Blink when waiting for input
 .display {
   font-family: digital-7_monoitalic, monospace;
 }
+
+.calculator {
+  max-width: 250px;
+  max-height: 350px;
+  border: 2px solid black;
+}
+
+.buttons {
+  display: grid;
+  grid-auto-rows: 50px;
+  grid-auto-columns: 250px;
+}
+
+.buttons * {
+  font-size: 1em;
+}
+
+.clear,
+.numbers-1,
+.numbers-2,
+.numbers-3 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.numbers-4 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
+}
