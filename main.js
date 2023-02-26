@@ -216,6 +216,7 @@ function acceptNewInput() {
   result = null;
   operatorPressed = false;
   equalsPressed = false;
+  showOperator();
 }
 
 function showResult() {
@@ -253,6 +254,7 @@ function updateDisplay(newContent) {
 
 function showOperator() {
   const operatorSymbol = {
+    null: '',
     add: '+',
     subtract: '-',
     multiply: '×',
