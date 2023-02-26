@@ -55,3 +55,7 @@ Blink when waiting for input
   display: grid;
   grid-template-columns: 1fr 1fr 2fr;
 }
+
+.operator-display {
+  justify-self: center;
+}

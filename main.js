@@ -180,11 +180,12 @@ function handleOperator(operator) {
       Then update operator. */
     showResult();
     chosenOperator = operator;
-    return;
   } else {
     chosenOperator = operator;
     operatorPressed = true;
   }
+
+  showOperator();
 }
 
 function handleClearAll() {
@@ -248,6 +249,17 @@ function showResult() {
 function updateDisplay(newContent) {
   const display = document.querySelector('.display');
   display.textContent = newContent;
+}
+
+function showOperator() {
+  const operatorSymbol = {
+    add: '+',
+    subtract: '-',
+    multiply: '×',
+    divide: '/',
+  };
+  const operatorDisplay = document.querySelector('.operator-display');
+  operatorDisplay.textContent = operatorSymbol[chosenOperator];
 }
 
 // Arithmetic
